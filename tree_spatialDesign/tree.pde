@@ -3,10 +3,10 @@ class tree
   PVector[] map;
   branch[] twig;
   int treeSize;
-  float BranchLengthFactor = 0.3;
+  float BranchLengthFactor = thinning;
   float BranchLocationFactor = 0.3;
 
-  float dt = 0.025;
+  float dt = windStrength;
   float time = 0;
   float[] dtheta;
 
@@ -88,8 +88,8 @@ class tree
       _candList.set(candidateIndex[i], -1.0);
     }
     //    println(candidateIndex);
-
-    amplitude[0] = random(0.006, 0.012);
+    
+    amplitude[0] = random(windAmplitude*windAmplitudeVar*-0.5, windAmplitude+windAmplitudeVar*0.5);
     phaseFactor[0] = random(0.6, 1.2);
     freq = random(0.5, 0.8);
     period = 1 / freq;

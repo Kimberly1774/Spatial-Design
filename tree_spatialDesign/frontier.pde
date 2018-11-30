@@ -9,7 +9,7 @@ class frontier
   {
     location = new PVector(startPoint.x, startPoint.y);
     velocity = new PVector(direction.x, direction.y);
-    thickness = random(10, 20);
+    thickness = myThickness;
     finished = false;
   }
   
@@ -31,12 +31,12 @@ class frontier
        & thickness > factor)  
     {
       velocity.normalize();
-      PVector uncertain = new PVector(random(-1, 1), random(-1, 1));
+      PVector uncertain = new PVector(random(-spreadToSides, spreadToSides), random(-1, .1));
       uncertain.normalize();
-      uncertain.mult(.2);
+      uncertain.mult(0.2);
       velocity.mult(0.8);
       velocity.add(uncertain);
-      velocity.mult(random(8, 15));
+      velocity.mult(random(10, 20));
       location.add(velocity);
     }
     
