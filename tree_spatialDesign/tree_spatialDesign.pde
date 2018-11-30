@@ -40,11 +40,11 @@ void setup()
     .setSize(500, 10)
     .setRange(0, 0.1);    
     
-  cp5.addSlider("windAmplitudeVar").setColorCaptionLabel(50)
+/*  cp5.addSlider("windAmplitudeVar").setColorCaptionLabel(50)
     .setPosition(sliderX, sliderY + sliderXSpace*3)
     .setSize(500, 10)
     .setRange(0, 0.1);  
-
+*/
   cp5.addSlider("growthSpeed").setColorCaptionLabel(50)
     .setPosition(sliderX, sliderY + sliderXSpace*4)
     .setSize(500, 10)
@@ -92,6 +92,5 @@ void draw()
     if (dist(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, mouseX, mouseY) < 300) {
       ellipse(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, 10, 10);
     }
-    println(treeSize);
   }
 }
