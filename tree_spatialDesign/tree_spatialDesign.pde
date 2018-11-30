@@ -19,8 +19,8 @@ float myThickness     = 10;
 float growthSpeed     = 50;
 float thinning        = 0.3;
 float spreadToSides   = 1;
-float windStrength    = 0.05;
-float windAmplitude   = 0.001;
+float windStrength    = 0.0125;
+float windAmplitude   = 0.01;
 float windAmplitudeVar= 0.005;
 
 
@@ -89,7 +89,6 @@ void draw()
   myTree.swing();
 
 
-
   stroke(90, 30, 40, 230);
   int tempIndex;
   for (int i = 1; i < constrain(frameCount*growthSpeed, 0, count); i ++)
@@ -106,7 +105,6 @@ void draw()
     //if (dist(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, mouseX, mouseY) < 300) {
     //ellipse(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, 10, 10);
     if (keyPressed && key == ENTER ) { //&& mayIFlower == true) {
-
 
 
       //for (ParticleSystem ps : systems) {

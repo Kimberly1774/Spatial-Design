@@ -11,7 +11,6 @@ class ParticleSystem {
   }
 
   void run() {
-
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
       p.run();
@@ -19,24 +18,24 @@ class ParticleSystem {
         particles.remove(i);
       }
       if (p.isBlooming()) {    
-        if (p.actualFlowerSizeP < p.myFlowerSizeP) 
-          p.actualFlowerSizeP = map(p.fixPersonalLifespanP, p.lifespan*isBloomingPro, p.lifespan*1, p.myFlowerSizeP, 0);
+        if (p.actualFlowerSizeP < p.myFlowerSizeP)  p.actualFlowerSizeP = map(p.fixPersonalLifespanP, p.lifespan*isBloomingPro, p.lifespan*1, p.myFlowerSizeP, 0);
       }
       if (p.isInBloom()) {
+        p.flowersAreSwinging();
+
       }
       if (p.isInDecay()) {
         p.mycolorStrength = map(p.fixPersonalLifespanP, p.lifespan*isInBloomPro, p.lifespan*isInDecayPro, 255, 100);
       }
       if (p.isFalling()) {
         p.mycolorStrength -= 0.125;
-        p.update();
+        p.falling();
       }
     }
   }
 
   void addParticle() {
     Particle p;
-
     p = new Particle(origin, int(random(10, 100)), random(100, 300));
 
 
