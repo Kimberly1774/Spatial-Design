@@ -6,9 +6,12 @@ tree myTree;
 PVector startPoint;
 PVector drection;
 int count;
+
+float isBloomingPro = 0.8, isInBloomPro = 0.6, isInDecayPro = 0.3, isFalling = 0.2;
+
+//controlP5
 float uncertainX, uncertainY;
 Slider thicknessSlider, uncertainXSlider, uncertainYSlider, windStrengthSlider;
-
 int   sliderX         = 50;
 int   sliderY         = 50;
 int   sliderXSpace    = 15;
@@ -16,9 +19,16 @@ float myThickness     = 10;
 float growthSpeed     = 50;
 float thinning        = 0.3;
 float spreadToSides   = 1;
-float windStrength    = 0.0125;
-float windAmplitude   = 0.0012;
-float windAmplitudeVar= 0.00125;
+float windStrength    = 0.05;
+float windAmplitude   = 0.001;
+float windAmplitudeVar= 0.005;
+
+
+//particleSystem
+ArrayList<ParticleSystem> systems;
+float fixPersonalLifespan;
+float colorStrength;
+float flowerSize = 0;
 
 void setup() 
 {
@@ -39,12 +49,12 @@ void setup()
     .setPosition(sliderX, sliderY + sliderXSpace*2)
     .setSize(500, 10)
     .setRange(0, 0.1);    
-    
-/*  cp5.addSlider("windAmplitudeVar").setColorCaptionLabel(50)
-    .setPosition(sliderX, sliderY + sliderXSpace*3)
-    .setSize(500, 10)
-    .setRange(0, 0.1);  
-*/
+
+  /*  cp5.addSlider("windAmplitudeVar").setColorCaptionLabel(50)
+   .setPosition(sliderX, sliderY + sliderXSpace*3)
+   .setSize(500, 10)
+   .setRange(0, 0.1);  
+   */
   cp5.addSlider("growthSpeed").setColorCaptionLabel(50)
     .setPosition(sliderX, sliderY + sliderXSpace*4)
     .setSize(500, 10)
@@ -60,7 +70,7 @@ void setup()
     .setSize(500, 10)
     .setRange(0, 150); 
 
-  size(800, 700);
+  size(800, 900);
   ellipseMode(CENTER);
   fill(40, 90, 220, 120);
   ellipseMode(CENTER);
@@ -69,12 +79,16 @@ void setup()
   drection = new PVector(0, -height);
   myTree = new tree(startPoint, drection);
   count = myTree.treeSize;
+  systems = new ArrayList<ParticleSystem>();
+  //cp5.hide();
 }
-
+boolean mayIFlower = true;
 void draw() 
 {
   background(255, 100);
   myTree.swing();
+
+
 
   stroke(90, 30, 40, 230);
   int tempIndex;
@@ -89,8 +103,49 @@ void draw()
   for (int i = 0; i < myTree.twig.length; i++)
   {
     int num = myTree.twig[i].location.length - 1;
-    if (dist(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, mouseX, mouseY) < 300) {
-      ellipse(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, 10, 10);
+    //if (dist(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, mouseX, mouseY) < 300) {
+    //ellipse(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, 10, 10);
+    if (keyPressed && key == ENTER ) { //&& mayIFlower == true) {
+
+
+
+      //for (ParticleSystem ps : systems) {
+      // if (ps.origin.x == myTree.twig[i].location[num].x && ps.origin.y == myTree.twig[i].location[num].y) {      
+      if (systems.size() < myTree.twig.length) systems.add(new ParticleSystem(1, new PVector(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y)));
+      //   }
+      // }
+
+      if (i == myTree.twig.length -1 ) {
+        mayIFlower = false;
+      }
     }
+    if (key != ENTER) mayIFlower = true;
+    //}
   }
+  //    for (int i = particles.size()-1; i >= 0; i--) {
+
+
+  for (int i = systems.size()-1; i >= 0; i--) {
+    ParticleSystem sys = systems.get(i);
+    
+    sys.run();
+    if (sys.particles.size() == 0) {
+    systems.remove(i);
+  }
+  }
+  /*
+  for (int i = systems.size()-1; i >= 0; i--) {
+   systems.get(i).run();
+   }*/
+}
+
+
+/* 
+ for (ParticleSystem ps : systems) {
+ if (ps != null) ps.run();
+ }
+ */
+
+void mouseMoved() {
+  mayIFlower = true;
 }

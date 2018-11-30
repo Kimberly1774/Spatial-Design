@@ -7,3 +7,7 @@ void keyPressed() {
     frameCount = 0;
   }
 }
+
+void mousePressed() {
+  //systems.add(new ParticleSystem(1, new PVector(mouseX, mouseY)));
+}

@@ -87,7 +87,6 @@ class tree
       _candfloat[candidateIndex[i]] = -1.0;
       _candList.set(candidateIndex[i], -1.0);
     }
-    //    println(candidateIndex);
     
     amplitude[0] = random(windAmplitude*windAmplitudeVar*-0.5, windAmplitude+windAmplitudeVar*0.5);
     phaseFactor[0] = random(0.6, 1.2);
