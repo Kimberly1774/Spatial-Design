@@ -6,7 +6,7 @@ class ParticleSystem {
     particles = new ArrayList<Particle>();   // Initialize the arraylist
     origin = v.copy();                        // Store the origin point
     for (int i = 0; i < num; i++) {
-      particles.add(new Particle(origin, int(random(6, 12)), random(100, 200)));    // Add "num" amount of particles to the arraylist
+      particles.add(new Particle(origin, int(random(6, 12)), random(100, 200), uppp));    // Add "num" amount of particles to the arraylist
     }
   }
 
@@ -22,7 +22,6 @@ class ParticleSystem {
       }
       if (p.isInBloom()) {
         p.flowersAreSwinging();
-
       }
       if (p.isInDecay()) {
         p.mycolorStrength = map(p.fixPersonalLifespanP, p.lifespan*isInBloomPro, p.lifespan*isInDecayPro, 255, 100);
@@ -36,7 +35,7 @@ class ParticleSystem {
 
   void addParticle() {
     Particle p;
-    p = new Particle(origin, int(random(10, 100)), random(100, 300));
+    p = new Particle(origin, int(random(10, 100)), random(100, 300), uppp);
 
 
     /*} 

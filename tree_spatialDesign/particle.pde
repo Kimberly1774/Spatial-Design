@@ -7,8 +7,9 @@ class Particle {
   float actualFlowerSizeP = 0;
   float fixPersonalLifespanP;
   float mycolorStrength;
+  color[] theColor;
 
-  Particle(PVector l, int myFlowerSize, float fixPersonalLifespan) {
+  Particle(PVector l, int myFlowerSize, float fixPersonalLifespan, color[] uppp) {
     acceleration = new PVector(random(0.1, 0.05), random(0.2, 0.3));
     velocity = new PVector(0, 0);
     position = l.copy();
@@ -16,6 +17,7 @@ class Particle {
     myFlowerSizeP = myFlowerSize;
     fixPersonalLifespanP = fixPersonalLifespan;
     mycolorStrength = random(200, 255);
+    theColor = uppp;
   }
 
   void run() {
@@ -24,14 +26,12 @@ class Particle {
   }
 
   void flowersAreSwinging() {
-    
-    
-/*    for (int i = particles.size()-1; i >= 0; i--) {
-      Particle p = particles.get(i);
-      p.position.x = myTree.twig[i].location[particles.indexOf(p)].x;
-      p.position.y = myTree.twig[i].location[particles.indexOf(p)].y;
-    }
-    */
+    /*    for (int i = particles.size()-1; i >= 0; i--) {
+     Particle p = particles.get(i);
+     p.position.x = myTree.twig[i].location[particles.indexOf(p)].x;
+     p.position.y = myTree.twig[i].location[particles.indexOf(p)].y;
+     }
+     */
   }
 
   void falling() {
@@ -46,7 +46,7 @@ class Particle {
   }
 
   void display() {
-    fill(10, map(fixPersonalLifespanP, 100, 200, 80, 10), map(fixPersonalLifespanP, 100, 200, 100, 180), mycolorStrength);
+    fill(theColor[int(map(position.y, 0, height, 0, 10))], mycolorStrength);
     for (int i = 0; i < myTree.twig.length; i++) {
       int num = myTree.twig[i].location.length - 1;
       if (dist(position.x, position.y, myTree.twig[i].location[num].x, myTree.twig[i].location[num].y) < 1) {
