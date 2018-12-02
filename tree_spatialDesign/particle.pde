@@ -25,15 +25,6 @@ class Particle {
     display();
   }
 
-  void flowersAreSwinging() {
-    /*    for (int i = particles.size()-1; i >= 0; i--) {
-     Particle p = particles.get(i);
-     p.position.x = myTree.twig[i].location[particles.indexOf(p)].x;
-     p.position.y = myTree.twig[i].location[particles.indexOf(p)].y;
-     }
-     */
-  }
-
   void falling() {
     velocity.add(acceleration);
     if (position.y < height - 10) {

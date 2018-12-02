@@ -9,7 +9,6 @@ color[] getTheColors() {
   // create a color histogram of image, using only 10% of its pixels and the given tolerance
   Histogram hist=Histogram.newFromARGBArray(img.pixels, img.pixels.length/10, tolerance, true);
   // now snap the color of each pixel to the closest color of the histogram palette
-  // (that's really a posterization/quantization effect)
   TColor col=TColor.BLACK.copy();
   for (int i=0; i<img.pixels.length; i++) {
     col.setARGB(img.pixels[i]);

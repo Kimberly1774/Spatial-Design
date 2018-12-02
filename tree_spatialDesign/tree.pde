@@ -87,7 +87,7 @@ class tree
       _candfloat[candidateIndex[i]] = -1.0;
       _candList.set(candidateIndex[i], -1.0);
     }
-    
+
     amplitude[0] = random(windAmplitude*windAmplitudeVar*-0.5, windAmplitude+windAmplitudeVar*0.5);
     phaseFactor[0] = random(0.6, 1.2);
     freq = random(0.5, 0.8);
@@ -97,6 +97,38 @@ class tree
       amplitude[i] = amplitude[i-1] * random(0.9, 1.4);
       phaseFactor[i] = phaseFactor[i-1] * random(0.9, 1.4);
     }
+  }
+
+  void display() 
+  {
+    for (int i = 1; i < constrain(frameCount*growthSpeed, 0, count); i ++)
+    {
+      strokeWeight(myTree.twig[(int)myTree.map[i].x].thickness[(int)myTree.map[i].y]);
+      line(myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y - 1].x, myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y - 1].y, 
+        myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y].x, myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y].y);
+    }
+  }
+  
+  void createParticleSystem() {
+    for (int i = 0; i < myTree.twig.length; i++)
+  {
+    int num = myTree.twig[i].location.length - 1;
+    //if (dist(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, mouseX, mouseY) < 300) {
+    //ellipse(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, 10, 10);
+    if (keyPressed && key == ENTER ) { //&& mayIFlower == true) {
+      //for (ParticleSystem ps : systems) {
+      // if (ps.origin.x == myTree.twig[i].location[num].x && ps.origin.y == myTree.twig[i].location[num].y) {      
+      if (systems.size() < myTree.twig.length) systems.add(new ParticleSystem(1, new PVector(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y)));
+      //   }
+      // }
+
+      if (i == myTree.twig.length -1 ) {
+        mayIFlower = false;
+      }
+    }
+    if (key != ENTER) mayIFlower = true;
+    //}
+  }
   }
 
   void swing()

@@ -21,8 +21,8 @@ class ParticleSystem {
         if (p.actualFlowerSizeP < p.myFlowerSizeP)  p.actualFlowerSizeP = map(p.fixPersonalLifespanP, p.lifespan*isBloomingPro, p.lifespan*1, p.myFlowerSizeP, 0);
       }
       if (p.isInBloom()) {
-        p.flowersAreSwinging();
-      }
+
+    }
       if (p.isInDecay()) {
         p.mycolorStrength = map(p.fixPersonalLifespanP, p.lifespan*isInBloomPro, p.lifespan*isInDecayPro, 255, 100);
       }

@@ -16,7 +16,7 @@ PVector startPoint;
 PVector drection;
 int count;
 
-float isBloomingPro = 0.8, isInBloomPro = 0.6, isInDecayPro = 0.3, isFalling = 0.2;
+float isBloomingPro = 0.8, isInBloomPro = 0.6, isInDecayPro = 0.4, isFalling = 0.2;
 
 //controlP5
 float uncertainX, uncertainY;
@@ -103,76 +103,38 @@ void setup()
   cp5.hide();
 }
 boolean mayIFlower = true;
+
 void draw() 
 {
-  
-  if (cam.available() == true && wasIn == false) {
+  /*if (cam.available() == true && wasIn == false) {
     cam.read();
-
     image(cam, 0, 0, 500, 500);
     PImage partialSave = get(0, 0, 500, 500);
     partialSave.save("data/partialSave.jpg");
     getTheColors();
-    
     wasIn = true;
-  }
-  
+  }*/
+
   background(255, 100);
   myTree.swing();
 
-
   stroke(90, 30, 40, 230);
   int tempIndex;
-  for (int i = 1; i < constrain(frameCount*growthSpeed, 0, count); i ++)
-  {
-    strokeWeight(myTree.twig[(int)myTree.map[i].x].thickness[(int)myTree.map[i].y]);
-    line(myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y - 1].x, myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y - 1].y, 
-      myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y].x, myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y].y);
-  }
-
+  myTree.display();
+  myTree.createParticleSystem();
   noStroke(); 
-  for (int i = 0; i < myTree.twig.length; i++)
-  {
-    int num = myTree.twig[i].location.length - 1;
-    //if (dist(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, mouseX, mouseY) < 300) {
-    //ellipse(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, 10, 10);
-    if (keyPressed && key == ENTER ) { //&& mayIFlower == true) {
-      //for (ParticleSystem ps : systems) {
-      // if (ps.origin.x == myTree.twig[i].location[num].x && ps.origin.y == myTree.twig[i].location[num].y) {      
-      if (systems.size() < myTree.twig.length) systems.add(new ParticleSystem(1, new PVector(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y)));
-      //   }
-      // }
-
-      if (i == myTree.twig.length -1 ) {
-        mayIFlower = false;
-      }
-    }
-    if (key != ENTER) mayIFlower = true;
-    //}
-  }
+  
   //    for (int i = particles.size()-1; i >= 0; i--) {
 
 
   for (int i = systems.size()-1; i >= 0; i--) {
     ParticleSystem sys = systems.get(i);
-
     sys.run();
     if (sys.particles.size() == 0) {
       systems.remove(i);
     }
   }
-  /*
-  for (int i = systems.size()-1; i >= 0; i--) {
-   systems.get(i).run();
-   }*/
 }
-
-
-/* 
- for (ParticleSystem ps : systems) {
- if (ps != null) ps.run();
- }
- */
 
 void mouseMoved() {
   mayIFlower = true;
