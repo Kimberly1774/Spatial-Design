@@ -11,10 +11,13 @@ Capture cam;
 
 ControlP5 cp5;
 
-tree myTree;
-PVector startPoint;
+tree myTree, myTree1, myTree2;
+tree[] myTrees;
+
+
+PVector startPoint, startPoint1, startPoint2;
 PVector drection;
-int count;
+int count, count1, count2;
 
 float isBloomingPro = 0.8, isInBloomPro = 0.6, isInDecayPro = 0.4, isFalling = 0.2;
 
@@ -90,15 +93,21 @@ void setup()
     .setSize(500, 10)
     .setRange(0, 150); 
 
-  size(800, 900);
+  size(1500, 900);
   ellipseMode(CENTER);
   fill(40, 90, 220, 120);
   ellipseMode(CENTER);
   smooth();
   startPoint = new PVector(width/2, height);
+  startPoint1 = new PVector(width*.2, height);
+  startPoint2 = new PVector(width*.8, height);
   drection = new PVector(0, -height);
-  myTree = new tree(startPoint, drection);
+  myTree = new tree(startPoint, drection, count);
+  myTree1 = new tree(startPoint1, drection, count1);
+  myTree2 = new tree(startPoint2, drection, count2);
   count = myTree.treeSize;
+  count1 = myTree1.treeSize;
+  count2 = myTree2.treeSize;
   systems = new ArrayList<ParticleSystem>();
   cp5.hide();
 }
@@ -107,23 +116,34 @@ boolean mayIFlower = true;
 void draw() 
 {
   /*if (cam.available() == true && wasIn == false) {
-    cam.read();
-    image(cam, 0, 0, 500, 500);
-    PImage partialSave = get(0, 0, 500, 500);
-    partialSave.save("data/partialSave.jpg");
-    getTheColors();
-    wasIn = true;
-  }*/
+   cam.read();
+   image(cam, 0, 0, 500, 500);
+   PImage partialSave = get(0, 0, 500, 500);
+   partialSave.save("data/partialSave.jpg");
+   getTheColors();
+   wasIn = true;
+   }*/
 
   background(255, 100);
+
   myTree.swing();
+  myTree1.swing();
+  myTree2.swing();
+
+
 
   stroke(90, 30, 40, 230);
   int tempIndex;
+
   myTree.display();
+  myTree1.display();
+  myTree2.display();    
   myTree.createParticleSystem();
+  myTree1.createParticleSystem();
+  myTree2.createParticleSystem();
+
   noStroke(); 
-  
+
   //    for (int i = particles.size()-1; i >= 0; i--) {
 
 

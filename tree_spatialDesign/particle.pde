@@ -36,7 +36,7 @@ class Particle {
     fixPersonalLifespanP -= 0.25;
   }
 
-  void display() {
+  void display() {    
     fill(theColor[int(map(position.y, 0, height, 0, 10))], mycolorStrength);
     for (int i = 0; i < myTree.twig.length; i++) {
       int num = myTree.twig[i].location.length - 1;

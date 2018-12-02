@@ -16,11 +16,13 @@ class tree
   float[] phaseFactor = new float[candNum];
   float freq;
   float period;
+  int thePersonalCount;
 
-  tree(PVector startPoint, PVector direction)
+  tree(PVector startPoint, PVector direction, int myCount)
   { 
     int id = 0;
     boolean growth = false;
+    thePersonalCount = myCount;
 
     frontier[] fr = new frontier[1];
     fr[id] = new frontier(startPoint, direction);
@@ -101,28 +103,28 @@ class tree
 
   void display() 
   {
-    for (int i = 1; i < constrain(frameCount*growthSpeed, 0, count); i ++)
+    for (int i = 1; i < constrain(frameCount*growthSpeed, 0, treeSize); i ++)
     {
-      strokeWeight(myTree.twig[(int)myTree.map[i].x].thickness[(int)myTree.map[i].y]);
-      line(myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y - 1].x, myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y - 1].y, 
-        myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y].x, myTree.twig[(int)myTree.map[i].x].location[(int)myTree.map[i].y].y);
+      strokeWeight(twig[(int)map[i].x].thickness[(int)map[i].y]);
+      line(twig[(int)map[i].x].location[(int)map[i].y - 1].x, twig[(int)map[i].x].location[(int)map[i].y - 1].y, 
+        twig[(int)map[i].x].location[(int)map[i].y].x, twig[(int)map[i].x].location[(int)map[i].y].y);
     }
   }
   
   void createParticleSystem() {
-    for (int i = 0; i < myTree.twig.length; i++)
+    for (int i = 0; i < twig.length; i++)
   {
-    int num = myTree.twig[i].location.length - 1;
+    int num = twig[i].location.length - 1;
     //if (dist(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, mouseX, mouseY) < 300) {
     //ellipse(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, 10, 10);
     if (keyPressed && key == ENTER ) { //&& mayIFlower == true) {
       //for (ParticleSystem ps : systems) {
       // if (ps.origin.x == myTree.twig[i].location[num].x && ps.origin.y == myTree.twig[i].location[num].y) {      
-      if (systems.size() < myTree.twig.length) systems.add(new ParticleSystem(1, new PVector(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y)));
+      if (systems.size() < twig.length) systems.add(new ParticleSystem(1, new PVector(twig[i].location[num].x, twig[i].location[num].y)));
       //   }
       // }
 
-      if (i == myTree.twig.length -1 ) {
+      if (i == twig.length -1 ) {
         mayIFlower = false;
       }
     }
