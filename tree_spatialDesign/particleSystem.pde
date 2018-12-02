@@ -10,10 +10,10 @@ class ParticleSystem {
     }
   }
 
-  void run() {
+  void run(int t) {
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
-      p.run();
+      p.run(t);
       if (p.isDead()) {
         particles.remove(i);
       }

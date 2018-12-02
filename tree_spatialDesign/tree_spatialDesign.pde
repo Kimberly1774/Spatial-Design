@@ -12,7 +12,7 @@ Capture cam;
 ControlP5 cp5;
 
 tree myTree, myTree1, myTree2;
-tree[] myTrees;
+tree[] myTrees = new tree[3];
 
 
 PVector startPoint, startPoint1, startPoint2;
@@ -38,6 +38,8 @@ float windAmplitudeVar= 0.005;
 boolean wasIn = false;
 //particleSystem
 ArrayList<ParticleSystem> systems;
+ArrayList<ParticleSystem> systems1;
+ArrayList<ParticleSystem> systems2;
 float fixPersonalLifespan;
 float colorStrength;
 float flowerSize = 0;
@@ -102,45 +104,53 @@ void setup()
   startPoint1 = new PVector(width*.2, height);
   startPoint2 = new PVector(width*.8, height);
   drection = new PVector(0, -height);
+
   myTree = new tree(startPoint, drection, count);
   myTree1 = new tree(startPoint1, drection, count1);
   myTree2 = new tree(startPoint2, drection, count2);
-  count = myTree.treeSize;
-  count1 = myTree1.treeSize;
-  count2 = myTree2.treeSize;
+
+
+  myTrees[0] = myTree;
+  myTrees[1] = myTree1;
+  myTrees[2] = myTree2;  
+
+
+  count = myTrees[0].treeSize;
+  count1 = myTrees[1].treeSize;
+  count2 = myTrees[2].treeSize;
   systems = new ArrayList<ParticleSystem>();
-  cp5.hide();
+  systems1 = new ArrayList<ParticleSystem>();
+  systems2 = new ArrayList<ParticleSystem>();
 }
 boolean mayIFlower = true;
 
 void draw() 
 {
-  /*if (cam.available() == true && wasIn == false) {
-   cam.read();
-   image(cam, 0, 0, 500, 500);
-   PImage partialSave = get(0, 0, 500, 500);
-   partialSave.save("data/partialSave.jpg");
-   getTheColors();
-   wasIn = true;
-   }*/
+  if (cam.available() == true && wasIn == false) {
+    cam.read();
+    image(cam, 0, 0, 500, 500);
+    PImage partialSave = get(0, 0, 500, 500);
+    partialSave.save("data/partialSave.jpg");
+    getTheColors();
+    wasIn = true;
+  } 
 
   background(255, 100);
 
-  myTree.swing();
-  myTree1.swing();
-  myTree2.swing();
-
+  myTrees[0].swing();
+  myTrees[1].swing();
+  myTrees[2].swing();
 
 
   stroke(90, 30, 40, 230);
   int tempIndex;
 
-  myTree.display();
-  myTree1.display();
-  myTree2.display();    
-  myTree.createParticleSystem();
-  myTree1.createParticleSystem();
-  myTree2.createParticleSystem();
+  myTrees[0].display();
+  myTrees[1].display();
+  myTrees[2].display();    
+  myTrees[0].createParticleSystem(0);
+  myTrees[1].createParticleSystem(1);
+  myTrees[2].createParticleSystem(2);
 
   noStroke(); 
 
@@ -149,9 +159,25 @@ void draw()
 
   for (int i = systems.size()-1; i >= 0; i--) {
     ParticleSystem sys = systems.get(i);
-    sys.run();
+    sys.run(0);
     if (sys.particles.size() == 0) {
       systems.remove(i);
+    }
+  }
+
+  for (int i = systems1.size()-1; i >= 0; i--) {
+    ParticleSystem sys1 = systems1.get(i);
+    sys1.run(1);
+    if (sys1.particles.size() == 0) {
+      systems1.remove(i);
+    }
+  }  
+
+  for (int i = systems2.size()-1; i >= 0; i--) {
+    ParticleSystem sys2 = systems2.get(i);
+    sys2.run(2);
+    if (sys2.particles.size() == 0) {
+      systems2.remove(i);
     }
   }
 }

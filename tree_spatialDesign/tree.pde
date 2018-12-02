@@ -110,27 +110,30 @@ class tree
         twig[(int)map[i].x].location[(int)map[i].y].x, twig[(int)map[i].x].location[(int)map[i].y].y);
     }
   }
-  
-  void createParticleSystem() {
-    for (int i = 0; i < twig.length; i++)
-  {
-    int num = twig[i].location.length - 1;
-    //if (dist(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, mouseX, mouseY) < 300) {
-    //ellipse(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, 10, 10);
-    if (keyPressed && key == ENTER ) { //&& mayIFlower == true) {
-      //for (ParticleSystem ps : systems) {
-      // if (ps.origin.x == myTree.twig[i].location[num].x && ps.origin.y == myTree.twig[i].location[num].y) {      
-      if (systems.size() < twig.length) systems.add(new ParticleSystem(1, new PVector(twig[i].location[num].x, twig[i].location[num].y)));
-      //   }
-      // }
 
-      if (i == twig.length -1 ) {
-        mayIFlower = false;
+  void createParticleSystem(int s) {
+    for (int i = 0; i < twig.length; i++)
+    {
+      int num = twig[i].location.length - 1;
+      //if (dist(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, mouseX, mouseY) < 300) {
+      //ellipse(myTree.twig[i].location[num].x, myTree.twig[i].location[num].y, 10, 10);
+      if (keyPressed && key == ENTER ) { //&& mayIFlower == true) {
+        //for (ParticleSystem ps : systems) {
+        // if (ps.origin.x == myTree.twig[i].location[num].x && ps.origin.y == myTree.twig[i].location[num].y) {      
+        if (s == 0) if (systems.size() < twig.length) systems.add(new ParticleSystem(1, new PVector(twig[i].location[num].x, twig[i].location[num].y)));
+        if (s == 1) if (systems1.size() < twig.length) systems1.add(new ParticleSystem(1, new PVector(twig[i].location[num].x, twig[i].location[num].y)));
+        if (s == 2) if (systems2.size() < twig.length) systems2.add(new ParticleSystem(1, new PVector(twig[i].location[num].x, twig[i].location[num].y)));
+
+        //   }
+        // }
+
+        if (i == twig.length -1 ) {
+          mayIFlower = false;
+        }
       }
+      if (key != ENTER) mayIFlower = true;
+      //}
     }
-    if (key != ENTER) mayIFlower = true;
-    //}
-  }
   }
 
   void swing()

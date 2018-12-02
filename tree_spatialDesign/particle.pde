@@ -10,7 +10,7 @@ class Particle {
   color[] theColor;
 
   Particle(PVector l, int myFlowerSize, float fixPersonalLifespan, color[] uppp) {
-    acceleration = new PVector(random(0.1, 0.05), random(0.2, 0.3));
+    acceleration = new PVector(random(0.1, 0.02), random(0.2, 0.3));
     velocity = new PVector(0, 0);
     position = l.copy();
     lifespan = fixPersonalLifespan;
@@ -20,9 +20,9 @@ class Particle {
     theColor = uppp;
   }
 
-  void run() {
+  void run(int t) {
     ageing();
-    display();
+    display(t);
   }
 
   void falling() {
@@ -36,13 +36,13 @@ class Particle {
     fixPersonalLifespanP -= 0.25;
   }
 
-  void display() {    
-    fill(theColor[int(map(position.y, 0, height, 0, 10))], mycolorStrength);
-    for (int i = 0; i < myTree.twig.length; i++) {
-      int num = myTree.twig[i].location.length - 1;
-      if (dist(position.x, position.y, myTree.twig[i].location[num].x, myTree.twig[i].location[num].y) < 1) {
-        position.x = myTree.twig[i].location[num].x;
-        position.y = myTree.twig[i].location[num].y;
+  void display(int t) {  
+    fill(theColor[t], mycolorStrength);
+    for (int i = 0; i < myTrees[t].twig.length; i++) {
+      int num = myTrees[t].twig[i].location.length - 1;
+      if (dist(position.x, position.y, myTrees[t].twig[i].location[num].x, myTrees[t].twig[i].location[num].y) < 1) {
+        position.x = myTrees[t].twig[i].location[num].x;
+        position.y = myTrees[t].twig[i].location[num].y;
       }
     }
     ellipse(position.x, position.y, actualFlowerSizeP, actualFlowerSizeP);

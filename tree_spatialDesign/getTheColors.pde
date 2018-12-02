@@ -3,6 +3,7 @@ color[] uppp = new color[1000];
 int countMe = 0;
 
 color[] getTheColors() {
+  println(frameRate);
 
   img=loadImage("partialSave.jpg");
   workImg=loadImage("partialSave.jpg");
