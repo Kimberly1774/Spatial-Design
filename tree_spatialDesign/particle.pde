@@ -37,7 +37,15 @@ class Particle {
   }
 
   void display(int t) {  
-    fill(theColor[t], mycolorStrength);
+    if (brightness(theColor[t]) > 220) {
+      if (t == 0)  fill(hue(theColor[3]) + int(map(myFlowerSizeP, 6, 12, 20, -20)), saturation(theColor[t]) * int(map(myFlowerSizeP, 0, 12, 0.125, 2)), brightness(theColor[3]), mycolorStrength);
+      if (t == 1)  fill(hue(theColor[3]) + int(map(myFlowerSizeP, 6, 12, 20, -20)), saturation(theColor[t]) * int(map(myFlowerSizeP, 0, 12, 0.125, 2)), brightness(theColor[3]), mycolorStrength);
+      if (t == 2)  fill(hue(theColor[3]) + int(map(myFlowerSizeP, 6, 12, 20, -20)), saturation(theColor[t]) * int(map(myFlowerSizeP, 0, 12, 0.125, 2)), brightness(theColor[3]), mycolorStrength);
+      if (t == 3)  fill(hue(theColor[4]) + int(map(myFlowerSizeP, 6, 12, 20, -20)), saturation(theColor[t]) * int(map(myFlowerSizeP, 0, 12, 0.125, 2)), brightness(theColor[4]), mycolorStrength);
+      if (t == 4)  fill(hue(theColor[5]) + int(map(myFlowerSizeP, 6, 12, 20, -20)), saturation(theColor[t]) * int(map(myFlowerSizeP, 0, 12, 0.125, 2)), brightness(theColor[5]), mycolorStrength);
+    } else {
+      fill(hue(theColor[t]) + int(map(myFlowerSizeP, 6, 12, 70, -70)), saturation(theColor[t]) * int(map(myFlowerSizeP, 0, 12, 0.125, 2)), brightness(theColor[t]), mycolorStrength);
+    }
     for (int i = 0; i < myTrees[t].twig.length; i++) {
       int num = myTrees[t].twig[i].location.length - 1;
       if (dist(position.x, position.y, myTrees[t].twig[i].location[num].x, myTrees[t].twig[i].location[num].y) < 1) {

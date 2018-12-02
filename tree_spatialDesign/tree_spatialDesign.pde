@@ -47,6 +47,7 @@ color[] myColors = {color(255, 0, 0), color(255, 0, 0), color(255, 0, 0), color(
 
 void setup() 
 {
+  colorMode(HSB, 255);
 
   String[] cameras = Capture.list();
 
