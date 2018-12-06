@@ -94,7 +94,7 @@ void setup()
   cp5.addSlider("spreadToSides").setColorCaptionLabel(50)
     .setPosition(sliderX, sliderY + sliderXSpace*6)
     .setSize(500, 10)
-    .setRange(0, 150); 
+    .setRange(0, 100); 
 
   size(1500, 900);
   ellipseMode(CENTER);
